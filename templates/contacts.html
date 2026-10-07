@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-5">{{ title }}</h1>
+
+<section id="contact-form" class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form action="#" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Ім'я</label>
+                        <input type="text" class="form-control" id="name" placeholder="Введіть ваше ім'я">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Електронна пошта</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Повідомлення</label>
+                        <textarea class="form-control" id="message" rows="5" placeholder="Напишіть своє повідомлення тут..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Відправити</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
