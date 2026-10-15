@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Домашня сторінка - Homepage{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="card-title text-primary mb-3">Домашня сторінка (Homepage)</h2>
+                <p class="card-text text-secondary">
+                    Ця сторінка виводить інформацію про ваш поточний браузер та операційну систему, за допомогою якої ви зайшли на сайт.
+                </p>
+                
+                <hr>
+
+                <div class="alert alert-secondary mt-3" role="alert">
+                    <strong>Ваш User-Agent:</strong> <br>
+                    <code>{{ agent }}</code>
+                </div>
+
+                <div class="mt-4">
+                    <a href="{{ url_for('resume') }}" class="btn btn-outline-secondary">На головну</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
