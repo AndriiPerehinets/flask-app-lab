@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Список товарів{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Каталог товарів</h2>
+    <div class="list-group">
+        {% for product in products %}
+            <a href="{{ url_for('products.product_detail', product_id=product.id) }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-primary">{{ product.name }}</h5>
+                    <small class="text-success fw-bold">${{ product.price }}</small>
+                </div>
+                <p class="mb-1 text-muted">{{ product.content[:60] }}...</p>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -4,6 +4,8 @@ app = Flask(__name__)
 
 from . import views
 
-# Імпортуємо та реєструємо блюпринт users
 from .users.views import users_bp
 app.register_blueprint(users_bp, url_prefix='/users')
+
+from .products.views import products_bp
+app.register_blueprint(products_bp, url_prefix='/products')
