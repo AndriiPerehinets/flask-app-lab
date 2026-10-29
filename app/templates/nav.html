@@ -1,31 +1,51 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ url_for('resume') }}">Lab 3 App</a>
+        <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">Lab 4 App</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <!-- Головна / Резюме -->
+            <ul class="navbar-nav me-auto">
+                <!-- Головна сторінка -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('resume') }}">Головна</a>
+                    <a class="nav-link" href="{{ url_for('home') }}">Головна</a>
                 </li>
-                <!-- Домашня сторінка з агентом -->
+                <!-- Сторінка резюме -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('home') }}">Homepage</a>
+                    <a class="nav-link" href="{{ url_for('resume') }}">Резюме</a>
                 </li>
-                <!-- Сторінка привітання користувача (Users Blueprint) -->
+                <!-- Сторінка профілю -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('users.greetings', name='Student', age=20) }}">Greetings</a>
+                    <a class="nav-link" href="{{ url_for('profile') }}">Профіль</a>
                 </li>
-                <!-- Сторінка адміна з редіректом -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('users.admin') }}">Admin (Redirect)</a>
-                </li>
-                <!-- Каталог товарів (Products Blueprint) -->
+                <!-- Додаткові сторінки: Товари -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('products.products_list') }}">Товари</a>
                 </li>
+                <!-- Додаткові сторінки: Greetings -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('users.greetings', name='Student', age=20) }}">Greetings</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto">
+                <!-- Сторінка входу / кнопка виходу з системи -->
+                {% if session.get('username') %}
+                    <li class="nav-item d-flex align-items-center me-2">
+                        <span class="navbar-text text-light small">
+                            👤 {{ session.get('username') }}
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <form action="{{ url_for('logout') }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">Вийти</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm px-3" href="{{ url_for('login') }}">Вхід</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

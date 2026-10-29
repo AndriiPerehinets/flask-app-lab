@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Резюме{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4 text-center mb-4">
+        <div class="card shadow-sm border-0 p-4">
+            <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center border shadow-sm mx-auto mb-3" style="width: 140px; height: 140px; font-size: 3.5rem;">
+                👨‍💻
+            </div>
+            <h4 class="fw-bold mb-1">Студент</h4>
+            <p class="text-muted">Інженерія програмного забезпечення</p>
+            <div class="d-grid gap-2">
+                <a href="{{ url_for('profile') }}" class="btn btn-outline-primary btn-sm">Мій профіль</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0 p-4 mb-4">
+            <h2 class="border-bottom pb-2 mb-3">Резюме</h2>
+            
+            <section id="about" class="mb-4">
+                <h4 class="text-primary">Про себе</h4>
+                <p>Студент спеціальності "Інженерія програмного забезпечення". Маю досвід розробки серверних додатків, побудови багатопотокових систем та управління реляційними базами даних.</p>
+            </section>
+
+            <section id="education" class="mb-4">
+                <h4 class="text-primary">Освіта</h4>
+                <ul>
+                    <li><strong>Прикарпатський національний університет імені Василя Стефаника</strong> — Інженерія програмного забезпечення</li>
+                </ul>
+            </section>
+
+            <section id="skills" class="mb-4">
+                <h4 class="text-primary">Навички та Технології</h4>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-success p-2">Go (Golang)</span>
+                    <span class="badge bg-primary p-2">Python / Flask</span>
+                    <span class="badge bg-danger p-2">Java / JavaFX</span>
+                    <span class="badge bg-info p-2">PostgreSQL / MS SQL Server</span>
+                    <span class="badge bg-dark p-2">Git / Docker</span>
+                </div>
+            </section>
+
+            <section id="projects">
+                <h4 class="text-primary">Досвід роботи та Проєкти</h4>
+                <ul>
+                    <li><strong>Telegram Bot API:</strong> розробка кастомного фреймворку з використанням горутин та каналів для багатопотоковості.</li>
+                    <li><strong>Desktop Application:</strong> створення системи обробки та сортування тексту наукових статей за допомогою JavaFX.</li>
+                    <li><strong>Networking:</strong> практичний досвід роботи з Packet Tracer, налаштування маршрутизації та IPv6 адрес (Cisco CCNA).</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

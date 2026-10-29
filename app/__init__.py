@@ -1,6 +1,7 @@
 from flask import Flask
 
 app = Flask(__name__)
+app.secret_key = 'lab4_secret_key_flashing_and_sessions'
 
 from . import views
 
