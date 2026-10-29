@@ -10,7 +10,7 @@
                 <h4 class="card-title mb-0">Форма входу</h4>
             </div>
             <div class="card-body p-4">
-                <form action="{{ url_for('login') }}" method="POST">
+                <form action="{{ url_for('users.login') }}" method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label fw-semibold">Username (Ім'я користувача)</label>
                         <input type="text" class="form-control" id="username" name="username" placeholder="Введіть username" required autofocus>
@@ -37,4 +37,3 @@
     </div>
 </div>
 {% endblock %}
-

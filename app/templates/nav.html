@@ -16,7 +16,7 @@
                 </li>
                 <!-- Сторінка профілю -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('profile') }}">Профіль</a>
+                    <a class="nav-link" href="{{ url_for('users.profile') }}">Профіль</a>
                 </li>
                 <!-- Додаткові сторінки: Товари -->
                 <li class="nav-item">
@@ -37,13 +37,13 @@
                         </span>
                     </li>
                     <li class="nav-item">
-                        <form action="{{ url_for('logout') }}" method="POST" class="d-inline">
+                        <form action="{{ url_for('users.logout') }}" method="POST" class="d-inline">
                             <button type="submit" class="btn btn-outline-danger btn-sm">Вийти</button>
                         </form>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm px-3" href="{{ url_for('login') }}">Вхід</a>
+                        <a class="btn btn-outline-light btn-sm px-3" href="{{ url_for('users.login') }}">Вхід</a>
                     </li>
                 {% endif %}
             </ul>
