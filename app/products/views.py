@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, abort
 
-products_bp = Blueprint('products', __name__, template_folder='templates')
+products_bp = Blueprint('products', __name__, template_folder='templates/products')
 
 products = [
     {
@@ -25,11 +25,11 @@ products = [
 
 @products_bp.route("/")
 def products_list():
-    return render_template("products/products.html", products=products)
+    return render_template("products.html", products=products)
 
 @products_bp.route("/<int:product_id>")
 def product_detail(product_id):
     product = next((p for p in products if p["id"] == product_id), None)
     if product is None:
         abort(404)  
-    return render_template("products/detail_product.html", product=product)
+    return render_template("detail_product.html", product=product)
