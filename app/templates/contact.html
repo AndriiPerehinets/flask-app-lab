@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% from "render_field.html" import render_field %}
+
+{% block title %}Контактна форма{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-dark text-white py-3">
+                <h4 class="mb-0 text-center">Контактна форма</h4>
+            </div>
+            <div class="card-body p-4">
+                <form action="{{ url_for('contact') }}" method="POST" novalidate>
+                    {{ form.hidden_tag() }}
+
+                    <dl class="mb-0">
+                        {{ render_field(form.name, class="form-control", placeholder="Введіть ім'я (4-10 символів)") }}
+                        {{ render_field(form.email, class="form-control", placeholder="name@example.com") }}
+                        {{ render_field(form.phone, class="form-control", placeholder="+380XXXXXXXXX") }}
+                        {{ render_field(form.subject, class="form-select") }}
+                        {{ render_field(form.message, class="form-control", rows="4", placeholder="Ваше повідомлення (до 500 символів)...") }}
+                    </dl>
+
+                    <div class="d-grid mt-4">
+                        {{ form.submit(class="btn btn-dark btn-lg py-2 fw-semibold") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
