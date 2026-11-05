@@ -3,14 +3,28 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="card shadow">
-        <div class="card-body">
-            <h2 class="card-title text-primary">{{ product.name }}</h2>
-            <h4 class="text-success mb-3">${{ product.price }}</h4>
-            <p class="card-text fs-5">{{ product.content }}</p>
-            <hr>
-            <a href="{{ url_for('products.products_list') }}" class="btn btn-outline-secondary">← Назад до каталогу</a>
+<div class="card p-3 shadow-sm">
+    <div class="row">
+        {% if product.image %}
+        <div class="col-md-4 mb-3">
+            <img src="{{ url_for('static', filename=product.image) }}" class="img-fluid rounded">
+        </div>
+        {% endif %}
+        <div class="col">
+            <h2>{{ product.name }}</h2>
+            <h4 class="text-success">${{ product.price }}</h4>
+            <p><strong>Категорія:</strong> {{ product.category }}</p>
+            <p><strong>Кількість:</strong> {{ product.quantity }} шт.</p>
+            <p><strong>Опис:</strong> {{ product.content }}</p>
+            <p class="text-muted small"><strong>Дата:</strong> {{ product.created_at }}</p>
+
+            <div class="d-flex gap-2 mt-3">
+                <a href="{{ url_for('products.product_edit', id=product.id) }}" class="btn btn-warning">Редагувати</a>
+                <form action="{{ url_for('products.product_delete', id=product.id) }}" method="POST" onsubmit="return confirm('Видалити?');">
+                    <button type="submit" class="btn btn-danger">Видалити</button>
+                </form>
+                <a href="{{ url_for('products.products_list') }}" class="btn btn-secondary">Назад</a>
+            </div>
         </div>
     </div>
 </div>
