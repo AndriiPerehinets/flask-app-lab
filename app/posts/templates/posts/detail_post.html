@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 800px;">
+    <div class="card shadow-sm p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-primary fs-6">{{ post.category }}</span>
+            <small class="text-muted">Опубліковано: {{ post.posted.strftime('%d.%m.%Y %H:%M') if post.posted else '' }}</small>
+        </div>
+
+        <h1 class="display-6 mb-3">{{ post.title }}</h1>
+        <p class="text-muted mb-4">
+            <strong>Автор:</strong> {{ post.author }} | 
+            <strong>Статус:</strong> {{ 'Активний' if post.is_active else 'Прихований' }}
+        </p>
+
+        <div class="mb-4 lead" style="white-space: pre-wrap;">{{ post.content }}</div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="{{ url_for('posts.all_posts') }}" class="btn btn-outline-secondary">← Back to Posts</a>
+            <div>
+                <a href="{{ url_for('posts.edit_post', id=post.id) }}" class="btn btn-warning">Edit</a>
+                <a href="{{ url_for('posts.delete_post', id=post.id) }}" class="btn btn-danger ms-2">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

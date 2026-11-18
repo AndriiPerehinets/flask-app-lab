@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Articles - Публікації{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('posts.static', filename='css/posts.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="myclass mb-0">Articles</h2>
+        <a href="{{ url_for('posts.add_post') }}" class="btn btn-primary">+ Add Post</a>
+    </div>
+
+    {% if not posts %}
+    <div class="alert alert-info">Поки що немає жодного поста. Будьте першим, хто додасть публікацію!</div>
+    {% else %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for post in posts %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('posts.static', filename='img/default.jpg') }}" class="card-img-top" alt="{{ post.title }}">
+                <div class="card-body">
+                    <span class="badge bg-secondary mb-2">{{ post.category }}</span>
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="text-muted small mb-2">Post ID: {{ post.id }} | Автор: {{ post.author }}</p>
+                    <p class="card-text text-secondary">
+                        {{ post.content[:100] }}{% if post.content|length > 100 %}...{% endif %}
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center">
+                    <small class="text-muted">{{ post.posted.strftime('%d.%m.%Y %H:%M') if post.posted else '' }}</small>
+                    <a href="{{ url_for('posts.detail_post', id=post.id) }}" class="btn btn-outline-primary btn-sm">View Post</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

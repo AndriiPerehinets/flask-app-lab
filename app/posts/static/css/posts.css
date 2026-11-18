@@ -1,0 +1,23 @@
+/* Кастомні стилі для модуля постів (Лабораторна 6, Частина 5) */
+
+.myclass {
+    background-color: #bbff00;
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.card-img-top {
+    height: 160px;
+    object-fit: cover;
+    background-color: #f1f3f5;
+}
