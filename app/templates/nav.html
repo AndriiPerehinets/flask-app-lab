@@ -19,6 +19,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('users.profile') }}">Профіль</a>
                 </li>
+                <!-- Список користувачів -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('users.users_list') }}">Користувачі</a>
+                </li>
                 <!-- Додаткові сторінки: Товари -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('products.products_list') }}">Товари</a>
@@ -38,20 +42,21 @@
             </ul>
 
             <ul class="navbar-nav ms-auto">
-                {% if session.get('username') %}
-                <li class="nav-item d-flex align-items-center me-2">
-                    <span class="navbar-text text-light small">
-                        👤 {{ session.get('username') }}
-                    </span>
+                {% if current_user.is_authenticated %}
+                <li class="nav-item me-2">
+                    <a class="btn btn-outline-light btn-sm px-3" href="{{ url_for('users.account') }}">Профіль ({{ current_user.username }})</a>
                 </li>
                 <li class="nav-item">
                     <form action="{{ url_for('users.logout') }}" method="POST" class="d-inline">
-                        <button type="submit" class="btn btn-outline-danger btn-sm">Вийти</button>
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Вихід</button>
                     </form>
                 </li>
                 {% else %}
-                <li class="nav-item">
+                <li class="nav-item me-2">
                     <a class="btn btn-outline-light btn-sm px-3" href="{{ url_for('users.login') }}">Вхід</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-success btn-sm px-3" href="{{ url_for('users.register') }}">Реєстрація</a>
                 </li>
                 {% endif %}
             </ul>

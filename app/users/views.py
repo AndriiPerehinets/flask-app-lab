@@ -1,4 +1,8 @@
 from flask import Blueprint, render_template, request, url_for, redirect, flash, session, make_response
+from flask_login import login_user, login_required, current_user, logout_user
+from app import db, bcrypt
+from .models import User
+from .forms import RegistrationForm, LoginForm
 
 users_bp = Blueprint('users', __name__, template_folder='templates')
 
@@ -23,23 +27,53 @@ def admin():
 
 @users_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    """Сторінка та обробка входу користувача (Вимоги 1, 2)."""
-    if request.method == 'POST':
-        username = request.form.get('username', '').strip()
-        password = request.form.get('password', '')
+    if current_user.is_authenticated:
+        return redirect(url_for('users.account'))
 
-        if username in USERS_DATA and USERS_DATA[username] == password:
-            session['username'] = username
-            flash(f'Успішний вхід! Вітаємо, {username}!', 'success')
-            return redirect(url_for('users.profile'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = db.session.scalars(db.select(User).where(User.email == form.email.data)).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember.data)
+            flash('You logged in successfully!', 'success')
+            return redirect(url_for('users.account'))
         else:
-            flash('Невірний логін або пароль. Спробуйте ще раз.', 'danger')
-            return redirect(url_for('users.login'))
+            flash('Невірний email або пароль. Спробуйте ще раз.', 'danger')
 
-    if 'username' in session:
-        return redirect(url_for('users.profile'))
+    return render_template('users/login.html', form=form, title='Login')
 
-    return render_template('users/login.html')
+
+@users_bp.route('/account')
+@login_required
+def account():
+    return render_template('users/account.html', user=current_user)
+
+
+@users_bp.route('/list')
+@login_required
+def users_list():
+    users = db.session.scalars(db.select(User).order_by(User.id)).all()
+    return render_template('users/users_list.html', users=users)
+
+
+@users_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('users.account'))
+
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            password=hashed_password
+        )
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('users.login'))
+    return render_template('users/register.html', form=form, title='Register')
 
 @users_bp.route('/profile')
 def profile():
@@ -150,10 +184,6 @@ def delete_all_cookies():
 
 @users_bp.route('/logout', methods=['GET', 'POST'])
 def logout():
-    """Видалення інформації про користувача з сесії (Вимога 4)."""
-    user = session.pop('username', None)
-    if user:
-        flash(f'Користувач {user} успішно вийшов із системи.', 'info')
-    else:
-        flash('Ви вийшли з системи.', 'info')
+    logout_user()
+    flash('You have successfully logged out.', 'info')
     return redirect(url_for('users.login'))
