@@ -28,6 +28,7 @@ products_collection = mongo_db['products']
 def create_app(config_name='default'):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+    app.config["SQLALCHEMY_ECHO"] = True
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -40,6 +41,7 @@ def create_app(config_name='default'):
     init_views(app)
 
     from .users.views import users_bp
+    from .users import models as user_models
     from .products.views import products_bp
     from .posts import post_bp
     from .products import models

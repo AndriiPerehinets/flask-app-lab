@@ -12,11 +12,20 @@
 
         <h1 class="display-6 mb-3">{{ post.title }}</h1>
         <p class="text-muted mb-4">
-            <strong>Автор:</strong> {{ post.author }} | 
+            <strong>Автор:</strong> {{ post.user.username if post.user else 'Anonymous' }} | 
             <strong>Статус:</strong> {{ 'Активний' if post.is_active else 'Прихований' }}
         </p>
 
         <div class="mb-4 lead" style="white-space: pre-wrap;">{{ post.content }}</div>
+
+        {% if post.tags %}
+        <div class="mb-3">
+            <strong>Теги:</strong>
+            {% for tag in post.tags %}
+                <span class="badge bg-info text-dark me-1">{{ tag.name }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <hr>
 

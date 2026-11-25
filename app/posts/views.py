@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import render_template, request, redirect, url_for, flash, abort, session
 from app import db
 from . import post_bp
-from .models import Post
+from .models import Post, Tag
 from .forms import PostForm
 
 
@@ -19,14 +19,18 @@ def all_posts():
 def add_post():
     form = PostForm()
     if form.validate_on_submit():
-        author = session.get('username') or 'Anonymous'
+        selected_tags = (
+            db.session.scalars(db.select(Tag).where(Tag.id.in_(form.tags.data))).all()
+            if form.tags.data else []
+        )
         new_post = Post(
             title=form.title.data,
             content=form.content.data,
             is_active=form.is_active.data,
             posted=form.publish_date.data or datetime.utcnow(),
             category=form.category.data,
-            author=author
+            user_id=form.author_id.data,
+            tags=selected_tags
         )
         db.session.add(new_post)
         db.session.commit()

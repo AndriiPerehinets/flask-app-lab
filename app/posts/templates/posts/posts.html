@@ -24,10 +24,17 @@
                 <div class="card-body">
                     <span class="badge bg-secondary mb-2">{{ post.category }}</span>
                     <h5 class="card-title">{{ post.title }}</h5>
-                    <p class="text-muted small mb-2">Post ID: {{ post.id }} | Автор: {{ post.author }}</p>
+                    <p class="text-muted small mb-2">Post ID: {{ post.id }} | Автор: {{ post.user.username if post.user else 'Anonymous' }}</p>
                     <p class="card-text text-secondary">
                         {{ post.content[:100] }}{% if post.content|length > 100 %}...{% endif %}
                     </p>
+                    {% if post.tags %}
+                    <div class="mb-2">
+                        {% for tag in post.tags %}
+                            <span class="badge bg-info text-dark me-1">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center">
                     <small class="text-muted">{{ post.posted.strftime('%d.%m.%Y %H:%M') if post.posted else '' }}</small>
