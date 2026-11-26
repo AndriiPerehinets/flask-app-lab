@@ -77,7 +77,6 @@ def register():
 
 @users_bp.route('/profile')
 def profile():
-    """Сторінка профілю користувача (Вимоги 3, 6, 7)."""
     if 'username' not in session:
         flash('Помилка доступу: сесія недоступна. Будь ласка, спочатку увійдіть у систему!', 'danger')
         return redirect(url_for('users.login'))
@@ -89,7 +88,6 @@ def profile():
 
 @users_bp.route('/set-theme/<string:theme_name>', methods=['GET', 'POST'])
 def set_theme(theme_name):
-    """Маршрут вибору та збереження кольорової схеми (Вимога 7)."""
     if 'username' not in session:
         flash('Помилка доступу: необхідно увійти у систему для зміни теми!', 'danger')
         return redirect(url_for('users.login'))
@@ -106,7 +104,6 @@ def set_theme(theme_name):
 
 @users_bp.route('/cookie/add', methods=['POST'])
 def add_cookie():
-    """Додавання кукі за ключем, значенням та терміном дії (Вимога 6)."""
     if 'username' not in session:
         flash('Помилка доступу: необхідно увійти у систему для керування cookies!', 'danger')
         return redirect(url_for('users.login'))
@@ -143,7 +140,6 @@ def add_cookie():
 
 @users_bp.route('/cookie/delete', methods=['POST'])
 def delete_cookie():
-    """Видалення окремого кукі за вказаним ключем (Вимога 6)."""
     if 'username' not in session:
         flash('Помилка доступу: необхідно увійти у систему для керування cookies!', 'danger')
         return redirect(url_for('users.login'))
@@ -164,7 +160,6 @@ def delete_cookie():
 
 @users_bp.route('/cookie/delete-all', methods=['POST'])
 def delete_all_cookies():
-    """Видалення всіх збережених користувацьких кукі (Вимога 6)."""
     if 'username' not in session:
         flash('Помилка доступу: необхідно увійти у систему для керування cookies!', 'danger')
         return redirect(url_for('users.login'))
