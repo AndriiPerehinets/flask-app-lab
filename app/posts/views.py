@@ -6,7 +6,6 @@ from .models import Post
 from .forms import PostForm
 
 
-# 1. Перегляд списку всіх видимих постів
 @post_bp.route('/post')
 def all_posts():
     stmt = db.select(Post).where(Post.is_active.is_(True)).order_by(Post.posted.desc())
@@ -14,7 +13,6 @@ def all_posts():
     return render_template('posts.html', posts=posts)
 
 
-# 2. Створення нового поста
 @post_bp.route('/post/create', methods=['GET', 'POST'])
 def add_post():
     form = PostForm()
@@ -36,7 +34,6 @@ def add_post():
     return render_template('add_post.html', form=form, title="Створити новий пост")
 
 
-# 3. Перегляд конкретного поста
 @post_bp.route('/post/<int:id>')
 def detail_post(id):
     post = db.session.get(Post, id)
@@ -45,7 +42,6 @@ def detail_post(id):
     return render_template('detail_post.html', post=post)
 
 
-# 4. Редагування поста
 @post_bp.route('/post/<int:id>/update', methods=['GET', 'POST'])
 def edit_post(id):
     post = db.session.get(Post, id)
@@ -67,7 +63,6 @@ def edit_post(id):
     return render_template('add_post.html', form=form, title="Редагувати пост")
 
 
-# 5. Видалення поста
 @post_bp.route('/post/<int:id>/delete', methods=['GET', 'POST'])
 def delete_post(id):
     post = db.session.get(Post, id)
