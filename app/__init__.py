@@ -36,7 +36,3 @@ def create_app(config_name='default'):
 
     return app
 
-
-# Екземпляр за замовчуванням для тестів з  минулих лаб
-app = create_app()
-
